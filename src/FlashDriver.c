@@ -2,6 +2,6 @@
 
 int Flash_Write(ioAddress addr, ioData data)
 {
-
-  return -1;
+  IO_Write(0x40, 0);
+  return 0;
 }

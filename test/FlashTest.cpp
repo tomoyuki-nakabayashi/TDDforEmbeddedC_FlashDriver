@@ -1,8 +1,6 @@
 #include "gtest/gtest.h"
 #include "gmock/gmock.h"
-extern "C" {
-  #include "FlashDriver.h"
-}
+#include "FlashDriver.h"
 
 namespace flash_driver_test{
   #include "mock/MockIO.h"
@@ -23,7 +21,7 @@ namespace flash_driver_test{
 
   TEST_F(FlashDriverTest, FirstWrite)
   {
-    EXPECT_CALL(*mockIO, IO_Write(0, 0x40)).Times(1);
+    EXPECT_CALL(*mockIO, IO_Write(0x40, 0)).Times(1);
     int result = Flash_Write(0x1000, 0xBEEF);
     EXPECT_EQ(0, result);
   }

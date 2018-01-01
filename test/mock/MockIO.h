@@ -1,6 +1,6 @@
 #include "gmock/gmock.h"
 extern "C" {
-  #include "FlashDriver.h"
+  #include "IO.h"
 }
 
 class MockIO {

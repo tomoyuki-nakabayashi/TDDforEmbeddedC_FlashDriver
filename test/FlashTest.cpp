@@ -5,8 +5,6 @@ extern "C" {
 }
 
 namespace flash_driver_test{
-  using ::testing::_;
-
   #include "mock/MockIO.h"
   MockIO *mockIO;
   

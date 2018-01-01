@@ -1,8 +1,6 @@
 #ifndef SRC_FLASH_DRIVER_H
 #define SRC_FLASH_DRIVER_H
-
-#define ioAddress int
-#define ioData int
+#include "IO.h"
 
 int Flash_Write(ioAddress addr, ioData data);
 

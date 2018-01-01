@@ -5,7 +5,11 @@ extern "C" {
 }
 
 namespace flash_driver_test{
+  using ::testing::_;
+
   #include "mock/MockIO.h"
+  MockIO *mockIO;
+  
   class FlashDriverTest : public ::testing::Test
   {
     virtual void SetUp()
@@ -17,14 +21,12 @@ namespace flash_driver_test{
     {
       delete mockIO;
     }
-    protected:
-      MockIO *mockIO;
   };
 
   TEST_F(FlashDriverTest, FirstWrite)
   {
-    EXPECT_CALL(MockIO, IO_Write(0, 0x40)).WillOnce();
-    EXPECT_CALL(MockIO, IO_Write(0x1000, 0xBEEF)).WillOnce();
-    auto result = Flash_Write(0x1000, 0xBEEF);
+    EXPECT_CALL(*mockIO, IO_Write(0, 0x40)).Times(1);
+    int result = Flash_Write(0x1000, 0xBEEF);
     EXPECT_EQ(0, result);
   }
+}

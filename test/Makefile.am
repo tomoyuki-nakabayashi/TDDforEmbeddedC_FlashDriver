@@ -7,7 +7,7 @@ libgmock_la_CPPFLAGS = -I$(top_srcdir)/googletest/googlemock/include -I$(top_src
 libgmock_la_LDFLAGS = $(libgtest_la_LDFLAGS)
 
 check_PROGRAMS = gtest
-gtest_LDADD = libgtest.la
+gtest_LDADD = libgtest.la libgmock.la
 gtest_LDFLAGS = -pthread
 gtest_CPPFLAGS = \
   -I$(top_srcdir)/googletest/googletest \
@@ -18,6 +18,7 @@ gtest_CPPFLAGS = \
   -I$(top_srcdir)/src
 
 test_sources = \
+  TestMain.cpp \
   FlashTest.cpp
 target_sources = \
   $(top_srcdir)/src/FlashDriver.c

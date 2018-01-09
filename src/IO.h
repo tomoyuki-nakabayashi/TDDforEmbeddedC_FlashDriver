@@ -9,6 +9,7 @@ typedef int ioAddress;
 typedef int ioData;
 
 void IO_Write(ioAddress addr, ioData data);
+ioData IO_Read(ioAddress addr);
 
 #ifdef __cplusplus
 }

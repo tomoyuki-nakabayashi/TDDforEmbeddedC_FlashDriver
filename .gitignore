@@ -30,3 +30,4 @@ test/gtest
 test/libgtest.la
 *.o
 .dirstamp
+*.la

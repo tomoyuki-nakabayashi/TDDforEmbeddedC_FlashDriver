@@ -7,6 +7,12 @@ extern "C" {
 
 #include "IO.h"
 
+enum {
+  FLASH_SUCCESS = 0
+};
+
+void Flash_Create();
+void Flash_Destroy();
 int Flash_Write(ioAddress addr, ioData data);
 
 #ifdef __cplusplus

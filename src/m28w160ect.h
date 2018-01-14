@@ -10,4 +10,8 @@ typedef enum {
   ProgramCommand = 0x40,
   Reset = 0xff
 } Flash_Command;
+
+enum {
+  ReadyBit = 1<<7
+};
 #endif  // SRC_M28W160ECT_H_

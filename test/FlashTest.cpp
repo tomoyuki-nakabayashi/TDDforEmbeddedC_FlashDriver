@@ -51,4 +51,15 @@ TEST_F(FlashDriverTest, SucceedsNotImmediatelyReady) {
   auto result = Flash_Write(address, data);
   EXPECT_EQ(FLASH_SUCCESS, result);
 }
+
+TEST_F(FlashDriverTest, WriteFails_VppError) {
+  EXPECT_CALL(*mockIO, IO_Write(CommandRegister, ProgramCommand)).Times(1);
+  EXPECT_CALL(*mockIO, IO_Write(address, data)).Times(1);
+  EXPECT_CALL(*mockIO, IO_Read(StatusRegister)).Times(1)
+    .WillOnce(Return(ReadyBit | VppErrorBit));
+  EXPECT_CALL(*mockIO, IO_Write(CommandRegister, Reset)).Times(1);
+  
+  auto result = Flash_Write(address, data);
+  EXPECT_EQ(FLASH_VPP_ERROR, result);
+}
 }

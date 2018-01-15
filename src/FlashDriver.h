@@ -8,7 +8,8 @@ extern "C" {
 #include "IO.h"
 
 enum {
-  FLASH_SUCCESS = 0
+  FLASH_SUCCESS = 0,
+  FLASH_VPP_ERROR = -1
 };
 
 void Flash_Create();

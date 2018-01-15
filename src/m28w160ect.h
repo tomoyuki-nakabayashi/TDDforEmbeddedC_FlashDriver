@@ -12,6 +12,7 @@ typedef enum {
 } Flash_Command;
 
 enum {
+  VppErrorBit = 1<<3,
   ReadyBit = 1<<7
 };
 #endif  // SRC_M28W160ECT_H_

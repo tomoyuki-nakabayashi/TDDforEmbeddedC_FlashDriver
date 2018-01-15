@@ -11,3 +11,7 @@ ioData IO_Read(ioAddress addr)
   ioData *p = 0;
   return *(p + addr);
 }
+
+void IO_Ctrl(myStruct *data) {
+
+}

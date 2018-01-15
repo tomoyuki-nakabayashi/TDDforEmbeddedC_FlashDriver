@@ -15,6 +15,7 @@ enum {
 void Flash_Create();
 void Flash_Destroy();
 int Flash_Write(ioAddress addr, ioData data);
+void Flash_Ctrl();
 
 #ifdef __cplusplus
 }

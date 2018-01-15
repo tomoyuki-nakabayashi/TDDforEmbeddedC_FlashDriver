@@ -62,4 +62,13 @@ TEST_F(FlashDriverTest, WriteFails_VppError) {
   auto result = Flash_Write(address, data);
   EXPECT_EQ(FLASH_VPP_ERROR, result);
 }
+
+using ::testing::Pointee;
+MATCHER_P(EqMyStruct, x, "") { return arg->a == x.a; }
+
+TEST_F(FlashDriverTest, PointeeTest) {
+  myStruct test = {1.0, 2, 3.0, 4};
+  EXPECT_CALL(*mockIO, IO_Ctrl(EqMyStruct(test))).Times(1);
+  Flash_Ctrl();
+}
 }

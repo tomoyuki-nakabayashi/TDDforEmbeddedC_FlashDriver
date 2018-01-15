@@ -28,3 +28,8 @@ int Flash_Write(ioAddress addr, ioData data)
   IO_Read(addr);
   return FLASH_SUCCESS;
 }
+
+void Flash_Ctrl() {
+  myStruct test = {1.0, 2, 3.0, 4};
+  IO_Ctrl(&test);
+}

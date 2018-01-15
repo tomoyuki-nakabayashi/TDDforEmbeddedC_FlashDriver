@@ -7,6 +7,7 @@ class MockIO {
 public:
   MOCK_METHOD1(IO_Read, ioData(ioAddress));
   MOCK_METHOD2(IO_Write, void(ioAddress, ioData));
+  MOCK_METHOD1(IO_Ctrl, void(myStruct*));
 };
 
 extern MockIO *mockIO;
@@ -20,6 +21,10 @@ extern "C" {
   ioData IO_Read(ioAddress addr)
   {
     return mockIO->IO_Read(addr);
+  }
+
+  void IO_Ctrl(myStruct *data) {
+    return mockIO->IO_Ctrl(data);
   }
 }
 

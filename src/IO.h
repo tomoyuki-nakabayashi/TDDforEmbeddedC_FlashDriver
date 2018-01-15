@@ -8,8 +8,16 @@ extern "C" {
 typedef int ioAddress;
 typedef int ioData;
 
+typedef struct {
+  double a;
+  unsigned char b;
+  double c;
+  unsigned int d;
+} myStruct;
+
 void IO_Write(ioAddress addr, ioData data);
 ioData IO_Read(ioAddress addr);
+void IO_Ctrl(myStruct *data);
 
 #ifdef __cplusplus
 }

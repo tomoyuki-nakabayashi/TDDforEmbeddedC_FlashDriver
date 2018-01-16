@@ -4,6 +4,7 @@
 #include "m28w160ect.h"
 
 namespace flash_driver_test{
+using ::testing::InSequence;
 using ::testing::Return;
 #include "mock/MockIO.h"
 MockIO *mockIO;
@@ -72,5 +73,18 @@ TEST_F(FlashDriverTest, WriteFails_FlashReadBackError) {
   auto result = Flash_Write(address, data);
 
   EXPECT_EQ(FLASH_READ_BACK_ERROR, result);
+}
+
+TEST_F(FlashDriverTest, WriteSucceeds_IgnoresOtherBitsUntilReady) {
+  InSequence s;
+  EXPECT_CALL(*mockIO, IO_Write(CommandRegister, ProgramCommand)).Times(1);
+  EXPECT_CALL(*mockIO, IO_Write(address, data)).Times(1);
+  EXPECT_CALL(*mockIO, IO_Read(StatusRegister)).WillOnce(Return(~ReadyBit));
+  EXPECT_CALL(*mockIO, IO_Read(StatusRegister)).WillOnce(Return(ReadyBit));
+  EXPECT_CALL(*mockIO, IO_Read(address)).WillOnce(Return(data));
+
+  auto result = Flash_Write(address, data);
+
+  EXPECT_EQ(FLASH_SUCCESS, result);
 }
 }

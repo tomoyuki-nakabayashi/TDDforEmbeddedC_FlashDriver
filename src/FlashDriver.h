@@ -9,7 +9,11 @@ extern "C" {
 
 enum {
   FLASH_SUCCESS = 0,
-  FLASH_VPP_ERROR = -1
+  FLASH_VPP_ERROR = -1,
+  FLASH_PROGRAM_ERROR = -2,
+  FLASH_PROTECTED_BLOCK_ERROR = -3,
+  FLASH_UNKNOWN_PROGRAM_ERROR = -4,
+  FLASH_READ_BACK_ERROR = -5
 };
 
 void Flash_Create();

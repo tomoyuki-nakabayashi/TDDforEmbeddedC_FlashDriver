@@ -25,6 +25,7 @@ int Flash_Write(ioAddress addr, ioData data)
     if (status & VppErrorBit) return FLASH_VPP_ERROR;
   }
 
-  IO_Read(addr);
+  if (IO_Read(addr) != data) return FLASH_READ_BACK_ERROR;
+  
   return FLASH_SUCCESS;
 }

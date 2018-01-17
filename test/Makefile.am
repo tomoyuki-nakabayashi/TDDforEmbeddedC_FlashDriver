@@ -20,7 +20,8 @@ gtest_CPPFLAGS = \
 
 test_sources = \
   TestMain.cpp \
-  FlashTest.cpp
+  FlashTest.cpp \
+  mock/FakeMicroTime.c
 target_sources = \
   $(top_srcdir)/src/FlashDriver.c
 gtest_SOURCES = $(test_sources) $(target_sources)

@@ -2,6 +2,7 @@
 #include "gmock/gmock.h"
 #include "FlashDriver.h"
 #include "m28w160ect.h"
+#include "mock/FakeMicroTime.h"
 
 namespace flash_driver_test{
 using ::testing::InSequence;
@@ -86,5 +87,18 @@ TEST_F(FlashDriverTest, WriteSucceeds_IgnoresOtherBitsUntilReady) {
   auto result = Flash_Write(address, data);
 
   EXPECT_EQ(FLASH_SUCCESS, result);
+}
+
+TEST_F(FlashDriverTest, WriteFails_Timeout) {
+  FakeMicroTime_Init(0, 500);
+  Flash_Create();
+  EXPECT_CALL(*mockIO, IO_Write(CommandRegister, ProgramCommand)).Times(1);
+  EXPECT_CALL(*mockIO, IO_Write(address, data)).Times(1);
+
+  for (auto i=0; i<10; i++)
+    EXPECT_CALL(*mockIO, IO_Read(StatusRegister)).WillOnce(Return(~ReadyBit));
+  
+  auto result = Flash_Write(address, data);
+  EXPECT_EQ(FLASH_TIMEOUT_ERROR, result);
 }
 }

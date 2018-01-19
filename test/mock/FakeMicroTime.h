@@ -6,9 +6,9 @@ extern "C" {
 #endif
 
 #include <inttypes.h>
+#include "MicroTime.h"
 
 void FakeMicroTime_Init(uint32_t start, uint32_t incr);
-uint32_t MicroTime_Get(void);
 
 #ifdef __cplusplus
 }

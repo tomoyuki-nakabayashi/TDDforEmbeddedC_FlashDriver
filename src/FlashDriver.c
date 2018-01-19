@@ -1,5 +1,9 @@
+#include <inttypes.h>
 #include "FlashDriver.h"
 #include "m28w160ect.h"
+#include "MicroTime.h"
+
+#define FLASH_WRITE_TIMEOUT_IN_MICROSECONDS 5000
 
 void Flash_Create() {
 
@@ -16,11 +20,14 @@ static int writeError(int status) {
 
 int Flash_Write(ioAddress addr, ioData data)
 {
+  uint32_t timestamp = MicroTime_Get();
   IO_Write(CommandRegister, ProgramCommand);
   IO_Write(addr, data);
 
-  ioData status = 0;
+  ioData status = IO_Read(StatusRegister);
   while ((status & ReadyBit) == 0) {
+    if (MicroTime_Get() - timestamp >= FLASH_WRITE_TIMEOUT_IN_MICROSECONDS)
+      return FLASH_TIMEOUT_ERROR;
     status = IO_Read(StatusRegister);
   }
 

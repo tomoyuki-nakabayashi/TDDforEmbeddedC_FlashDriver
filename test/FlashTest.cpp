@@ -95,8 +95,9 @@ TEST_F(FlashDriverTest, WriteFails_Timeout) {
   EXPECT_CALL(*mockIO, IO_Write(CommandRegister, ProgramCommand)).Times(1);
   EXPECT_CALL(*mockIO, IO_Write(address, data)).Times(1);
 
-  for (auto i=0; i<10; i++)
-    EXPECT_CALL(*mockIO, IO_Read(StatusRegister)).WillOnce(Return(~ReadyBit));
+  EXPECT_CALL(*mockIO, IO_Read(StatusRegister))
+    .Times(10)
+    .WillRepeatedly(Return(~ReadyBit));
   
   auto result = Flash_Write(address, data);
   EXPECT_EQ(FLASH_TIMEOUT_ERROR, result);

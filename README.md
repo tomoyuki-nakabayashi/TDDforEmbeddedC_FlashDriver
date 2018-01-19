@@ -1,4 +1,4 @@
-# LedDriver (Test Driven Development for Embedded C) googletest
+# FlashDriver (Test Driven Development for Embedded C) googletest
 
 ## How to use
 git clone --recursive https://github.com/tomoyuki-nakabayashi/TDDforEmbeddedC_FlashDriver.git  

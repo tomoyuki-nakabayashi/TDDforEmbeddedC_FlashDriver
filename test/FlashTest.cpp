@@ -102,4 +102,18 @@ TEST_F(FlashDriverTest, WriteFails_Timeout) {
   auto result = Flash_Write(address, data);
   EXPECT_EQ(FLASH_TIMEOUT_ERROR, result);
 }
+
+TEST_F(FlashDriverTest, WriteFails_TimeoutAtEndOfTime) {
+  FakeMicroTime_Init(0xffffffff, 500);
+  Flash_Create();
+  EXPECT_CALL(*mockIO, IO_Write(CommandRegister, ProgramCommand)).Times(1);
+  EXPECT_CALL(*mockIO, IO_Write(address, data)).Times(1);
+
+  EXPECT_CALL(*mockIO, IO_Read(StatusRegister))
+    .Times(10)
+    .WillRepeatedly(Return(~ReadyBit));
+  
+  auto result = Flash_Write(address, data);
+  EXPECT_EQ(FLASH_TIMEOUT_ERROR, result);
+}
 }
